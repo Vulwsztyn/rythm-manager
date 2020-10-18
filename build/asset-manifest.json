@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/rythm-manager/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/rythm-manager/static/js/main.fdb1acd1.chunk.js",
+    "main.js.map": "/rythm-manager/static/js/main.fdb1acd1.chunk.js.map",
+    "runtime-main.js": "/rythm-manager/static/js/runtime-main.b223f6ea.js",
+    "runtime-main.js.map": "/rythm-manager/static/js/runtime-main.b223f6ea.js.map",
+    "static/js/2.41e4157b.chunk.js": "/rythm-manager/static/js/2.41e4157b.chunk.js",
+    "static/js/2.41e4157b.chunk.js.map": "/rythm-manager/static/js/2.41e4157b.chunk.js.map",
+    "index.html": "/rythm-manager/index.html",
+    "precache-manifest.eded2250eadf5d55019db32f0945f010.js": "/rythm-manager/precache-manifest.eded2250eadf5d55019db32f0945f010.js",
+    "service-worker.js": "/rythm-manager/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/rythm-manager/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.41e4157b.chunk.js.LICENSE.txt": "/rythm-manager/static/js/2.41e4157b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b223f6ea.js",
+    "static/js/2.41e4157b.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.fdb1acd1.chunk.js"
+  ]
+}
