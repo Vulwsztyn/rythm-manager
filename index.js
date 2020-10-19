@@ -4,11 +4,12 @@ const send = require('@polka/send-type')
 const { json, urlencoded } = require('body-parser')
 const { TOKEN, VOICE_CHANNEL_ID, MSG_CHANNEL_ID, PORT } = process.env
 const polka = require('polka')
-
+const cors = require('cors')
 async function main() {
   const bot = new Bot(TOKEN, VOICE_CHANNEL_ID, MSG_CHANNEL_ID)
   await bot.init()
   polka()
+    .use(cors())
     .use(urlencoded({ extended: false }))
     .use(json())
     .get('/', (req, res) => {
