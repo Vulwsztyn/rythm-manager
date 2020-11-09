@@ -19,33 +19,34 @@ export default function NestedList() {
   const classes = useStyles()
   const [myList, setMyList] = React.useState([])
 
-  function reduceFn(acc, x, path = []) {
-    if (x.length < 1) return acc
-    if (x[0] === '-') {
-      return reduceFn(acc, x.slice(1), [
-        ...path,
-        R.path(path, acc).length - 1,
-        'children',
-      ])
-    } else {
-      const [title, ...rest] = x.split('-')
-      const command = rest.join('-').trim()
-      return R.assocPath(
-        [...path, R.pathOr([], path, acc).length],
-        {
-          name: title.trim(),
-          ...(command.length > 0 ? { command } : {}),
-        },
-        acc
-      )
-    }
-  }
-
-  function dataMapper(data) {
-    const mapped = R.reduce(reduceFn, [], data.split('\n'))
-    return mapped
-  }
   React.useEffect(() => {
+    function reduceFn(acc, x, path = []) {
+      if (x.length < 1) return acc
+      if (x[0] === '-') {
+        return reduceFn(acc, x.slice(1), [
+          ...path,
+          R.path(path, acc).length - 1,
+          'children',
+        ])
+      } else {
+        const [title, ...rest] = x.split('-')
+        const command = rest.join('-').trim()
+        return R.assocPath(
+          [...path, R.pathOr([], path, acc).length],
+          {
+            name: title.trim(),
+            ...(command.length > 0 ? { command } : {}),
+          },
+          acc
+        )
+      }
+    }
+
+    function dataMapper(data) {
+      const mapped = R.reduce(reduceFn, [], data.split('\n'))
+      return mapped
+    }
+    
     async function effect() {
       const { data } = await axios.get(
         'https://raw.githubusercontent.com/Vulwsztyn/rythm-manager/config/config'
@@ -62,7 +63,7 @@ export default function NestedList() {
         <ListItem
           button={e.command}
           key={e.name}
-          style={{ paddingLeft: padding + 'em' }}
+          style={{ paddingLeft: (padding + 1) * 4 + 'em' }}
           onClick={async () => {
             if (e.command && e.command) {
               await await axios.post('https://rythm-manager.herokuapp.com/', {
@@ -75,7 +76,7 @@ export default function NestedList() {
         </ListItem>
         {e.children ? (
           <List component="div" disablePadding>
-            {e.children.map(listMapper(padding + 4))}
+            {e.children.map(listMapper(padding + 1))}
           </List>
         ) : (
           <></>
