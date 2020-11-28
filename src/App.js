@@ -1,10 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import axios from 'axios'
 const R = require('ramda')
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -46,7 +48,7 @@ export default function NestedList() {
       const mapped = R.reduce(reduceFn, [], data.split('\n'))
       return mapped
     }
-    
+
     async function effect() {
       const { data } = await axios.get(
         'https://raw.githubusercontent.com/Vulwsztyn/rythm-manager/config/config'
