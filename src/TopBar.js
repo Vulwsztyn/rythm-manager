@@ -81,6 +81,13 @@ export default function TopBar(props) {
             </Button>
             <Button
               variant="contained"
+              color="primary"
+              onClick={() => send('!clean')}
+            >
+              !clean
+            </Button>
+            <Button
+              variant="contained"
               color="secondary"
               className={classes.right}
               onClick={() => send('!disconnect')}
