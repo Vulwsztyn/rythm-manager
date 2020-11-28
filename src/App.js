@@ -5,6 +5,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import axios from 'axios'
+import send from './send'
 const R = require('ramda')
 
 const useStyles = makeStyles((theme) => ({
@@ -19,22 +20,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NestedList() {
   function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex
+
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
       // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+
       // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+      temporaryValue = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temporaryValue
     }
-  
-    return array;
+
+    return array
   }
 
   const classes = useStyles()
@@ -74,9 +76,7 @@ export default function NestedList() {
       )
       console.log(dataMapper(data))
       setMyList(shuffle(dataMapper(data)))
-      await await axios.post('https://rythm-manager.herokuapp.com/', {
-                msg: '!summon',
-              })
+      await send('!summon')
     }
     effect()
   }, [])
@@ -89,10 +89,8 @@ export default function NestedList() {
           key={e.name}
           style={{ paddingLeft: (padding + 1) * 4 + 'em' }}
           onClick={async () => {
-            if (e.command && e.command) {
-              await await axios.post('https://rythm-manager.herokuapp.com/', {
-                msg: e.command,
-              })
+            if (e.command) {
+              await send(e.command)
             }
           }}
         >

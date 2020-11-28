@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
+import TopBar from './TopBar'
 import * as serviceWorker from './serviceWorker'
 import { ThemeProvider } from '@material-ui/core/styles'
 import darkTheme from './theme'
@@ -9,6 +10,7 @@ import darkTheme from './theme'
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>
+      <TopBar position="sticky" />
       <App
         style={{
           display: 'flex',
