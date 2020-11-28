@@ -74,6 +74,9 @@ export default function NestedList() {
       )
       console.log(dataMapper(data))
       setMyList(shuffle(dataMapper(data)))
+      await await axios.post('https://rythm-manager.herokuapp.com/', {
+                msg: '!summon',
+              })
     }
     effect()
   }, [])
