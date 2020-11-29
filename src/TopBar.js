@@ -51,41 +51,17 @@ export default function TopBar(props) {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar className={classes.root}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => send('!q')}
-            >
-              !q
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => send('!fs')}
-            >
-              !fs
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => send('!pause')}
-            >
-              !pause
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => send('!p')}
-            >
-              !play
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => send('!clean')}
-            >
-              !clean
-            </Button>
+            {['!q', '!fs', '!shuffle', '!pause', '!play', '!clean'].map(
+              (text) => (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => send(text)}
+                >
+                  {text}
+                </Button>
+              )
+            )}
             <Button
               variant="contained"
               color="secondary"

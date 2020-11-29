@@ -127,7 +127,7 @@ export default function NestedList() {
           Math.floor((myList.length / 4) * 4)
         ),
       ].map((splitList) => (
-        <Grid xs={3}>
+        <Grid xs={12} sm={6} md={4} lg={3}>
           {splitList.map((band) => {
             return (
               <Grid item xs={12}>
