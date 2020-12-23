@@ -42,6 +42,13 @@ export default function NestedList() {
   const classes = useStyles()
   const [myList, setMyList] = React.useState([])
 
+  function extractHash(link) {
+    const res1 = link.match(/watch\?v=([^&]*)/)
+    const res2 = link.match(/youtu\.be\/([^?]*)/)
+    const hash = (res1 && res1[1]) || (res2 && res2[1]) || link
+    return hash
+  }
+
   React.useEffect(() => {
     function reduceFn(acc, x, path = []) {
       if (x.length < 1) return acc
@@ -53,7 +60,7 @@ export default function NestedList() {
         ])
       } else {
         const [title, ...rest] = x.split('-')
-        const command = rest.join('-').trim()
+        const command = extractHash(rest.join('-').trim())
         return R.assocPath(
           [...path, R.pathOr([], path, acc).length],
           {
@@ -76,22 +83,43 @@ export default function NestedList() {
       )
       console.log(dataMapper(data))
       setMyList(shuffle(dataMapper(data)))
-      await send('!summon')
+      setInterval(
+        () => axios.get('https://rythm-manager.herokuapp.com/'),
+        10000
+      )
     }
     effect()
   }, [])
+
+  async function sendList(list) {
+    console.log(list)
+    await send(
+      '!p http://www.youtube.com/watch_videos?video_ids=' + list.join(',')
+    )
+  }
+
+  function elemToList(e) {
+    if (!e.children) {
+      return [e.command]
+    } else {
+      return e.children.map((e) => elemToList(e)).reduce((x, y) => x.concat(y))
+    }
+  }
+
+  async function handleClick(e) {
+    const list = elemToList(e)
+    sendList(list.length <= 50 ? list : shuffle(list))
+  }
 
   const listMapper = (padding) => (e) => {
     return (
       <>
         <ListItem
-          button={e.command}
+          button={true}
           key={e.name}
           style={{ paddingLeft: (padding + 1) * 4 + 'em' }}
           onClick={async () => {
-            if (e.command) {
-              await send(e.command)
-            }
+            handleClick(e)
           }}
         >
           <ListItemText primary={e.name} />
