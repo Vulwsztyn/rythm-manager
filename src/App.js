@@ -44,8 +44,8 @@ export default function NestedList() {
   const classes = useStyles()
   const [myList, setMyList] = React.useState([])
   const [links, setLinks] = React.useState([])
+  const [linksByArtist, setLinksByArtist] = React.useState({})
   // const links = {}
-  const linksByArtist = {}
   function extractHash(link) {
     const res1 = link.match(/watch\?v=([^&]*)/)
     const res2 = link.match(/youtu\.be\/([^?]*)/)
@@ -75,6 +75,18 @@ export default function NestedList() {
             acc.data
           ),
           links: [...acc.links, ...(command.length > 0 ? [command] : [])],
+          currentArtist: path.length > 0 ? acc.currentArtist : title,
+          linksByArtist:
+            path.length > 0 && command.length > 0
+              ? R.assocPath(
+                  [
+                    acc.currentArtist,
+                    R.pathOr([], [acc.currentArtist], acc.linksByArtist).length,
+                  ],
+                  command,
+                  acc.linksByArtist
+                )
+              : acc.linksByArtist,
         }
       }
     }
@@ -82,9 +94,10 @@ export default function NestedList() {
     function dataMapper(data) {
       const mapped = R.reduce(
         reduceFn,
-        { data: [], links: [] },
+        { data: [], links: [], linksByArtist: {} },
         data.split('\n')
       )
+      // console.log(mapped.linksByArtist)
       return mapped
     }
 
@@ -96,7 +109,7 @@ export default function NestedList() {
       const mappedData = dataMapper(data)
       setMyList(shuffle(mappedData.data))
       setLinks(mappedData.links)
-      console.log(mappedData.links)
+      setLinksByArtist(mappedData.linksByArtist)
       setInterval(
         () => axios.get('https://rythm-manager.herokuapp.com/'),
         10000
@@ -104,8 +117,16 @@ export default function NestedList() {
     }
     effect()
   }, [])
+  const choose = (items) => items[Math.floor(Math.random() * items.length)]
 
-  async function playRandomN(n) {
+  function oneOfEverything() {
+    const list = Object.keys(linksByArtist).map((name) =>
+      choose(linksByArtist[name])
+    )
+    sendList(list)
+  }
+
+  function playRandomN(n) {
     const list = shuffle(links).slice(0, n)
     sendList(list)
   }
@@ -156,7 +177,11 @@ export default function NestedList() {
 
   return (
     <>
-      <TopBar position="sticky" playRandomN={playRandomN} />
+      <TopBar
+        position="sticky"
+        playRandomN={playRandomN}
+        oneOfEverything={oneOfEverything}
+      />
       <Grid container spacing={3}>
         {[
           myList.slice(

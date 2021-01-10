@@ -81,6 +81,15 @@ export default function TopBar(props) {
                       Random 50
                     </Button>
                   </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => props.oneOfEverything()}
+                    >
+                      One of Everything
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
 
