@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 
 import { makeStyles } from '@material-ui/core/styles'
 import send from './send'
@@ -51,25 +52,46 @@ export default function TopBar(props) {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar className={classes.root}>
-            {['!q', '!fs', '!shuffle', '!pause', '!play', '!clean'].map(
-              (text) => (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => send(text)}
-                >
-                  {text}
-                </Button>
-              )
-            )}
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.right}
-              onClick={() => send('!disconnect')}
+            <Grid
+              justify="space-between" // Add it here :)
+              container
+              spacing={24}
             >
-              !Disconnect
-            </Button>
+              <Grid item>
+                <Grid container spacing={1}>
+                  {['!q', '!fs', '!shuffle', '!pause', '!play', '!clean'].map(
+                    (text) => (
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => send(text)}
+                        >
+                          {text}
+                        </Button>
+                      </Grid>
+                    )
+                  )}
+                </Grid>
+              </Grid>
+
+              <Grid item>
+                <Grid container spacing={1}>
+                  {['!clear', '!disconnect'].map((text) => (
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.right}
+                        onClick={() => send(text)}
+                      >
+                        {text}
+                      </Button>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            </Grid>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
