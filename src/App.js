@@ -6,6 +6,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import axios from 'axios'
 import send from './send'
+import TopBar from './TopBar'
+
 const R = require('ramda')
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +43,9 @@ export default function NestedList() {
 
   const classes = useStyles()
   const [myList, setMyList] = React.useState([])
-
+  const [links, setLinks] = React.useState([])
+  // const links = {}
+  const linksByArtist = {}
   function extractHash(link) {
     const res1 = link.match(/watch\?v=([^&]*)/)
     const res2 = link.match(/youtu\.be\/([^?]*)/)
@@ -55,25 +59,32 @@ export default function NestedList() {
       if (x[0] === '-') {
         return reduceFn(acc, x.slice(1), [
           ...path,
-          R.path(path, acc).length - 1,
+          R.path(path, acc.data).length - 1,
           'children',
         ])
       } else {
         const [title, ...rest] = x.split('-')
         const command = extractHash(rest.join('-').trim())
-        return R.assocPath(
-          [...path, R.pathOr([], path, acc).length],
-          {
-            name: title.trim(),
-            ...(command.length > 0 ? { command } : {}),
-          },
-          acc
-        )
+        return {
+          data: R.assocPath(
+            [...path, R.pathOr([], path, acc.data).length],
+            {
+              name: title.trim(),
+              ...(command.length > 0 ? { command } : {}),
+            },
+            acc.data
+          ),
+          links: [...acc.links, ...(command.length > 0 ? [command] : [])],
+        }
       }
     }
 
     function dataMapper(data) {
-      const mapped = R.reduce(reduceFn, [], data.split('\n'))
+      const mapped = R.reduce(
+        reduceFn,
+        { data: [], links: [] },
+        data.split('\n')
+      )
       return mapped
     }
 
@@ -81,8 +92,11 @@ export default function NestedList() {
       const { data } = await axios.get(
         'https://raw.githubusercontent.com/Vulwsztyn/rythm-manager/config/config'
       )
-      console.log(dataMapper(data))
-      setMyList(shuffle(dataMapper(data)))
+      // console.log(dataMapper(data))
+      const mappedData = dataMapper(data)
+      setMyList(shuffle(mappedData.data))
+      setLinks(mappedData.links)
+      console.log(mappedData.links)
       setInterval(
         () => axios.get('https://rythm-manager.herokuapp.com/'),
         10000
@@ -90,6 +104,11 @@ export default function NestedList() {
     }
     effect()
   }, [])
+
+  async function playRandomN(n) {
+    const list = shuffle(links).slice(0, n)
+    sendList(list)
+  }
 
   async function sendList(list) {
     console.log(list)
@@ -136,41 +155,44 @@ export default function NestedList() {
   }
 
   return (
-    <Grid container spacing={3}>
-      {[
-        myList.slice(
-          Math.floor(myList.length / 4) * 0,
-          Math.floor(myList.length / 4) * 1
-        ),
-        myList.slice(
-          Math.floor(myList.length / 4) * 1,
-          Math.floor(myList.length / 4) * 2
-        ),
-        myList.slice(
-          Math.floor(myList.length / 4) * 2,
-          Math.floor(myList.length / 4) * 3
-        ),
-        myList.slice(
-          Math.floor(myList.length / 4) * 3,
-          Math.floor((myList.length / 4) * 4)
-        ),
-      ].map((splitList) => (
-        <Grid xs={12} sm={6} md={4} lg={3}>
-          {splitList.map((band) => {
-            return (
-              <Grid item xs={12}>
-                <List
-                  component="nav"
-                  aria-labelledby="nested-list-subheader"
-                  className={classes.root}
-                >
-                  {[band].map(listMapper(0))}
-                </List>
-              </Grid>
-            )
-          })}
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <TopBar position="sticky" playRandomN={playRandomN} />
+      <Grid container spacing={3}>
+        {[
+          myList.slice(
+            Math.floor(myList.length / 4) * 0,
+            Math.floor(myList.length / 4) * 1
+          ),
+          myList.slice(
+            Math.floor(myList.length / 4) * 1,
+            Math.floor(myList.length / 4) * 2
+          ),
+          myList.slice(
+            Math.floor(myList.length / 4) * 2,
+            Math.floor(myList.length / 4) * 3
+          ),
+          myList.slice(
+            Math.floor(myList.length / 4) * 3,
+            Math.floor((myList.length / 4) * 4)
+          ),
+        ].map((splitList) => (
+          <Grid xs={12} sm={6} md={4} lg={3}>
+            {splitList.map((band) => {
+              return (
+                <Grid item xs={12}>
+                  <List
+                    component="nav"
+                    aria-labelledby="nested-list-subheader"
+                    className={classes.root}
+                  >
+                    {[band].map(listMapper(0))}
+                  </List>
+                </Grid>
+              )
+            })}
+          </Grid>
+        ))}
+      </Grid>
+    </>
   )
 }
