@@ -120,8 +120,8 @@ export default function NestedList() {
   const choose = (items) => items[Math.floor(Math.random() * items.length)]
 
   function oneOfEverything() {
-    const list = Object.keys(linksByArtist).map((name) =>
-      choose(linksByArtist[name])
+    const list = shuffle(
+      Object.keys(linksByArtist).map((name) => choose(linksByArtist[name]))
     )
     sendList(list)
   }
