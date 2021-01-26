@@ -63,8 +63,12 @@ export default function NestedList() {
           'children',
         ])
       } else {
-        const [title, ...rest] = x.split('-')
-        const command = extractHash(rest.join('-').trim())
+        const split = x.split(' - ')
+        console.log({split})
+        const title = split.length > 1 ? split.slice(0,-1).join(' - ') : x
+        const link = split.length > 1 ? split.slice(-1)[0] : ""
+        console.log({link})
+        const command = extractHash(link.trim())
         return {
           data: R.assocPath(
             [...path, R.pathOr([], path, acc.data).length],
