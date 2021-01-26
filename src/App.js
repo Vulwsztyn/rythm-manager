@@ -64,10 +64,10 @@ export default function NestedList() {
         ])
       } else {
         const split = x.split(' - ')
-        console.log({split})
-        const title = split.length > 1 ? split.slice(0,-1).join(' - ') : x
-        const link = split.length > 1 ? split.slice(-1)[0] : ""
-        console.log({link})
+        console.log({ split })
+        const title = split.length > 1 ? split.slice(0, -1).join(' - ') : x
+        const link = split.length > 1 ? split.slice(-1)[0] : ''
+        console.log({ link })
         const command = extractHash(link.trim())
         return {
           data: R.assocPath(
@@ -99,7 +99,7 @@ export default function NestedList() {
       const mapped = R.reduce(
         reduceFn,
         { data: [], links: [], linksByArtist: {} },
-        data.split('\n')
+        data.split('\n').filter((x) => !x.startsWith('#'))
       )
       // console.log(mapped.linksByArtist)
       return mapped
