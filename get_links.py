@@ -55,7 +55,6 @@ while request is not None:
     #     print(key)
     #     print(key, '->', value)
     request = youtube.playlistItems().list_next(request, response)
-
 print(f"total: {len(playlist_items)}")
 for t in playlist_items:
     # print(
@@ -66,4 +65,5 @@ for t in playlist_items:
     # print('-------------------------------')
     # for key, value in t.items():
     #     print(key, '->', value)
-    print ('-- {} - {}'.format(t["snippet"]['title'],t["snippet"]["resourceId"]["videoId"]))
+    print ('-- {} - {}'.format(' '.join(x.capitalize() for x in t["snippet"]['title'].split(' ')),t["snippet"]["resourceId"]["videoId"]))
+    # print(t["snippet"]['title'].split(' '))
