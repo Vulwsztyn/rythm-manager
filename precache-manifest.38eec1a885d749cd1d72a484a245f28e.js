@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "54b594fecbddb389aa0d4bedb30f3605",
+    "revision": "d020291b164116c7ba3d03c903bb4a12",
     "url": "/rythm-manager/index.html"
   },
   {
-    "revision": "32bd7e39855cdbb89d7f",
+    "revision": "7bcfe2e078ef88857e87",
     "url": "/rythm-manager/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rythm-manager/static/js/2.b76003c9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "32bd7e39855cdbb89d7f",
-    "url": "/rythm-manager/static/js/main.f1418ab3.chunk.js"
+    "revision": "7bcfe2e078ef88857e87",
+    "url": "/rythm-manager/static/js/main.b33793fd.chunk.js"
   },
   {
     "revision": "ebb7ba75331348069382",
