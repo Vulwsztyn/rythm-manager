@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  content: {
+    margin: '30px 0 0 0',
+  },
 }))
 
 export default function NestedList() {
@@ -186,7 +189,7 @@ export default function NestedList() {
         playRandomN={playRandomN}
         oneOfEverything={oneOfEverything}
       />
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className={classes.content}>
         {[
           myList.slice(
             Math.floor(myList.length / 4) * 0,
