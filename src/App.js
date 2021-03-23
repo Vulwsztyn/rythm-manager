@@ -5,14 +5,13 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import axios from 'axios'
-import send from './send'
 import TopBar from './TopBar'
 import Sender from './Sender'
 
 import { connect } from 'react-redux'
 
 const R = require('ramda')
-const { forwardRef, useRef, useImperativeHandle } = React
+const { useRef } = React
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function App({}) {
+function App() {
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -236,7 +235,6 @@ function App({}) {
   )
 }
 const mapStateToProps = (state) => {
-  const {} = state
   return {}
 }
 

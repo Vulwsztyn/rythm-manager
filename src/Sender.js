@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import send from './send'
-const { forwardRef, useRef, useImperativeHandle } = React
+const { forwardRef, useImperativeHandle } = React
 
 const Sender = forwardRef(({ command, prefix }, ref) => {
   useImperativeHandle(ref, () => ({
