@@ -7,9 +7,12 @@ import ListItemText from '@material-ui/core/ListItemText'
 import axios from 'axios'
 import send from './send'
 import TopBar from './TopBar'
+import Sender from './Sender'
+
+import { connect } from 'react-redux'
 
 const R = require('ramda')
-
+const { forwardRef, useRef, useImperativeHandle } = React
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -19,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   content: {
-    margin: '30px 0 0 0',
+    margin: '35px 0 0 0',
   },
 }))
 
-export default function NestedList() {
+function App({}) {
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -57,6 +60,7 @@ export default function NestedList() {
   }
 
   React.useEffect(() => {
+    console.log('useEffect')
     function reduceFn(acc, x, path = []) {
       if (x.length < 1) return acc
       if (x[0] === '-') {
@@ -67,10 +71,8 @@ export default function NestedList() {
         ])
       } else {
         const split = x.split(' - ')
-        console.log({ split })
         const title = split.length > 1 ? split.slice(0, -1).join(' - ') : x
         const link = split.length > 1 ? split.slice(-1)[0] : ''
-        console.log({ link })
         const command = extractHash(link.trim())
         return {
           data: R.assocPath(
@@ -109,6 +111,7 @@ export default function NestedList() {
     }
 
     async function effect() {
+      console.log('effect')
       const { data } = await axios.get(
         'https://raw.githubusercontent.com/Vulwsztyn/rythm-manager/config/config'
       )
@@ -124,6 +127,7 @@ export default function NestedList() {
     }
     effect()
   }, [])
+
   const choose = (items) => items[Math.floor(Math.random() * items.length)]
 
   function oneOfEverything() {
@@ -138,13 +142,6 @@ export default function NestedList() {
     sendList(list)
   }
 
-  async function sendList(list) {
-    console.log(list)
-    await send(
-      '!p http://www.youtube.com/watch_videos?video_ids=' + list.join(',')
-    )
-  }
-
   function elemToList(e) {
     if (!e.children) {
       return [e.command]
@@ -155,7 +152,7 @@ export default function NestedList() {
 
   async function handleClick(e) {
     const list = elemToList(e)
-    sendList(list.length <= 50 ? list : shuffle(list))
+    sendList(shuffle(list))
   }
 
   const listMapper = (padding) => (e) => {
@@ -173,7 +170,7 @@ export default function NestedList() {
         </ListItem>
         {e.children ? (
           <List component="div" disablePadding>
-            {shuffle(e.children).map(listMapper(padding + 1))}
+            {e.children.map(listMapper(padding + 1))}
           </List>
         ) : (
           <></>
@@ -181,13 +178,23 @@ export default function NestedList() {
       </>
     )
   }
+  const childRef = useRef()
+
+  async function sendList(list) {
+    console.log(list)
+    await childRef.current.sendWithPrefixAndCommand(
+      `http://www.youtube.com/watch_videos?video_ids=` + list.join(',')
+    )
+  }
 
   return (
     <>
+      <Sender ref={childRef} />
       <TopBar
         position="sticky"
         playRandomN={playRandomN}
         oneOfEverything={oneOfEverything}
+        sendWithPrefix={(t) => childRef.current.sendWithPrefix(t)}
       />
       <Grid container spacing={3} className={classes.content}>
         {[
@@ -228,3 +235,22 @@ export default function NestedList() {
     </>
   )
 }
+const mapStateToProps = (state) => {
+  const {} = state
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // setFunctions: (functions) => dispatch({ type: 'SET_FUNCTIONS', functions }),
+    // setAlgorithmState: (value) =>
+    //   dispatch({ type: 'SET_ALGORITHM_STATE', value }),
+    // setCurrentGeneration: (value) =>
+    //   dispatch({ type: 'SET_CURRENT_GENERATION', value }),
+    // setBestSpecimens: (value) =>
+    //   dispatch({ type: 'SET_BEST_SPECIMENS', value }),
+    // setBestSpecimen: (value) => dispatch({ type: 'SET_BEST_SPECIMEN', value }),
+  }
+}
+const Container = connect(mapStateToProps, mapDispatchToProps)(App)
+export default Container

@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import send from './send'
+import ChooseCommand from './ChooseCommand'
+import ChoosePrefix from './ChoosePrefix'
 
 import SkipNextSharpIcon from '@material-ui/icons/SkipNextSharp'
 import ShuffleSharpIcon from '@material-ui/icons/ShuffleSharp'
@@ -24,17 +26,17 @@ import Replay10SharpIcon from '@material-ui/icons/Replay10Sharp'
 import Replay30SharpIcon from '@material-ui/icons/Replay30Sharp'
 function ElevationScroll(props) {
   const { children, window } = props
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
+  // // Note that you normally won't need to set the window ref as useScrollTrigger
+  // // will default to window.
+  // // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-    target: window ? window() : undefined,
+    // target: window ? window() : undefined,
   })
 
   return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
+    elevation: trigger ? 8 : 0,
   })
 }
 
@@ -59,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 export default function TopBar(props) {
+  const { sendWithPrefix } = props
   const classes = useStyles()
   return (
     <React.Fragment>
@@ -83,31 +86,31 @@ export default function TopBar(props) {
                     <Grid container spacing={1}>
                       {[
                         {
-                          command: '!q',
+                          command: 'q',
                           buttonFiller: <QueueMusicSharpIcon />,
                         },
                         {
-                          command: '!fs',
+                          command: 'fs',
                           buttonFiller: <SkipNextSharpIcon />,
                         },
                         {
-                          command: '!shuffle',
+                          command: 'shuffle',
                           buttonFiller: <ShuffleSharpIcon />,
                         },
                         {
-                          command: '!pause',
+                          command: 'pause',
                           buttonFiller: <PauseCircleFilledSharpIcon />,
                         },
                         {
-                          command: '!play',
+                          command: 'play',
                           buttonFiller: <PlayCircleFilledWhiteSharpIcon />,
                         },
                         {
-                          command: '!clean',
+                          command: 'clean',
                           buttonFiller: <ClearAllSharpIcon />,
                         },
                         {
-                          command: '!loop',
+                          command: 'loop',
                           buttonFiller: <LoopSharpIcon />,
                         },
                       ].map(({ command, buttonFiller }) => (
@@ -115,7 +118,7 @@ export default function TopBar(props) {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => send(command)}
+                            onClick={() => sendWithPrefix(command)}
                           >
                             {buttonFiller}
                           </Button>
@@ -144,13 +147,13 @@ export default function TopBar(props) {
 
                   <Grid item>
                     <Grid container spacing={1}>
-                      {['!clear', '!disconnect'].map((text) => (
+                      {['clear', 'disconnect'].map((text) => (
                         <Grid item>
                           <Button
                             variant="contained"
                             color="secondary"
                             className={classes.right}
-                            onClick={() => send(text)}
+                            onClick={() => sendWithPrefix(text)}
                           >
                             {text}
                           </Button>
@@ -170,27 +173,27 @@ export default function TopBar(props) {
                     <Grid container spacing={1}>
                       {[
                         {
-                          command: '!rewind 30',
+                          command: 'rewind 30',
                           buttonFiller: <Replay30SharpIcon />,
                         },
                         {
-                          command: '!rewind 10',
+                          command: 'rewind 10',
                           buttonFiller: <Replay10SharpIcon />,
                         },
                         {
-                          command: '!rewind 5',
+                          command: 'rewind 5',
                           buttonFiller: <Replay5SharpIcon />,
                         },
                         {
-                          command: '!forward 5',
+                          command: 'forward 5',
                           buttonFiller: <Forward5SharpIcon />,
                         },
                         {
-                          command: '!forward 10',
+                          command: 'forward 10',
                           buttonFiller: <Forward10SharpIcon />,
                         },
                         {
-                          command: '!forward 30',
+                          command: 'forward 30',
                           buttonFiller: <Forward30SharpIcon />,
                         },
                       ].map(({ command, buttonFiller }) => (
@@ -198,13 +201,21 @@ export default function TopBar(props) {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => send(command)}
+                            onClick={() => sendWithPrefix(command)}
                           >
                             {buttonFiller}
                           </Button>
                         </Grid>
                       ))}
                     </Grid>
+                  </Grid>
+                  <Grid item>
+                    <ChoosePrefix />
+                  </Grid>
+                  <Grid item>
+                    <ChooseCommand />
+                  </Grid>
+                  <Grid item>
                   </Grid>
                 </Grid>
               </Grid>
