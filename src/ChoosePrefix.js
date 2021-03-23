@@ -1,10 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import Checkbox from '@material-ui/core/Checkbox'
 import { connect } from 'react-redux'
 
@@ -63,14 +61,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPrefix: (value) => dispatch({ type: 'CHANGE_PREFIX', value }),
-    // setFunctions: (functions) => dispatch({ type: 'SET_FUNCTIONS', functions }),
-    // setAlgorithmState: (value) =>
-    //   dispatch({ type: 'SET_ALGORITHM_STATE', value }),
-    // setCurrentGeneration: (value) =>
-    //   dispatch({ type: 'SET_CURRENT_GENERATION', value }),
-    // setBestSpecimens: (value) =>
-    //   dispatch({ type: 'SET_BEST_SPECIMENS', value }),
-    // setBestSpecimen: (value) => dispatch({ type: 'SET_BEST_SPECIMEN', value }),
   }
 }
 const Container = connect(mapStateToProps, mapDispatchToProps)(CheckboxesGroup)

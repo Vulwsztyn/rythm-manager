@@ -7,7 +7,6 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import send from './send'
 import ChooseCommand from './ChooseCommand'
 import ChoosePrefix from './ChoosePrefix'
 
@@ -25,14 +24,13 @@ import Replay5SharpIcon from '@material-ui/icons/Replay5Sharp'
 import Replay10SharpIcon from '@material-ui/icons/Replay10Sharp'
 import Replay30SharpIcon from '@material-ui/icons/Replay30Sharp'
 function ElevationScroll(props) {
-  const { children, window } = props
+  const { children } = props
   // // Note that you normally won't need to set the window ref as useScrollTrigger
   // // will default to window.
   // // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-    // target: window ? window() : undefined,
   })
 
   return React.cloneElement(children, {
