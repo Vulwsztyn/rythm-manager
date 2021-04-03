@@ -29,9 +29,12 @@ export default function MultilineTextFields() {
   const reloadOutput = () => {}
 
   const handleChange = async (event) => {
-    const res = await axios.post('http://127.0.0.1:3000/playlistItems', {
-      listId: event.target.value,
-    })
+    const res = await axios.post(
+      'https://rythm-manager.herokuapp.com/playlistItems',
+      {
+        listId: event.target.value,
+      }
+    )
     setRes(res)
     reloadOutput()
   }
