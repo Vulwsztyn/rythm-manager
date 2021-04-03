@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://vulwsztyn.github.io/rythm-manager/precache-manifest.33a2a9226a3e5b2cef9649367478df22.js"
+  "https://vulwsztyn.github.io/rythm-manager/precache-manifest.bce6e0c33816b61691091d6558732f5e.js"
 );
 
 self.addEventListener('message', (event) => {
