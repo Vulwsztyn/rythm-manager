@@ -17,6 +17,7 @@
     "discord.js": "^11.6.4",
     "dotenv": "^8.2.0",
     "ffmpeg-binaries": "^4.0.0",
+    "googleapis": "^70.0.0",
     "node-opus": "^0.3.3",
     "polka": "^0.5.2"
   },
