@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
+import LinkGetter from './linkGetter'
 import * as serviceWorker from './serviceWorker'
 import { reducer } from './reducers'
 import { createStore } from 'redux'
@@ -14,7 +15,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
-            <Route path="/links" children={<div>test</div>} />
+            <Route path="/links" children={<LinkGetter />} />
             <Route
               path="/"
               children={
