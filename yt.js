@@ -20,7 +20,8 @@ class YT {
   }
 
   async getList(listIdRaw) {
-    const listId = this.qs.parse(listIdRaw).list || listIdRaw
+    const match = listIdRaw.match(/list=([^&?]+)/)
+    const listId = match ? match[1] : listIdRaw
     const playlistRes = await this.youtube.playlists.list({
       part: 'snippet',
       id: listId,
