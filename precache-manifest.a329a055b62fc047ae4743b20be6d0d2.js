@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2550fd981db2340ef0ca4da479689649",
+    "revision": "9408fb9ed69bc4a848fe643390cacefd",
     "url": "https://vulwsztyn.github.io/rythm-manager/index.html"
   },
   {
-    "revision": "0dab36215abda3062f69",
+    "revision": "d14729597197d824df3a",
     "url": "https://vulwsztyn.github.io/rythm-manager/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "de7b2464ad0a11c81c67",
-    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/2.f7e6d506.chunk.js"
+    "revision": "795a2d09aff34ef00f11",
+    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/2.6ac9e30f.chunk.js"
   },
   {
     "revision": "6397acf4c5cafcd591a770ce33fc3e2f",
-    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/2.f7e6d506.chunk.js.LICENSE.txt"
+    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/2.6ac9e30f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0dab36215abda3062f69",
-    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/main.db659026.chunk.js"
+    "revision": "d14729597197d824df3a",
+    "url": "https://vulwsztyn.github.io/rythm-manager/static/js/main.296adc53.chunk.js"
   },
   {
     "revision": "cd5404c880a2bccb21b1",
