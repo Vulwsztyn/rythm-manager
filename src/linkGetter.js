@@ -30,7 +30,7 @@ export default function MultilineTextFields() {
 
   const handleChange = async (event) => {
     const res = await axios.post(
-      'https://rythm-manager.herokuapp.com/playlistItems',
+      `${process.env.REACT_APP_SERVER_URL}playlistItems`,
       {
         listId: event.target.value,
       }

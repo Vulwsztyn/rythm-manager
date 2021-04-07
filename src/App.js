@@ -120,7 +120,7 @@ function App() {
       setLinks(mappedData.links)
       setLinksByArtist(mappedData.linksByArtist)
       setInterval(
-        () => axios.get('https://rythm-manager.herokuapp.com/'),
+        () => axios.get(process.env.REACT_APP_SERVER_URL),
         10000
       )
     }

@@ -9,7 +9,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 const store = createStore(reducer)
-
+require('dotenv').config()
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

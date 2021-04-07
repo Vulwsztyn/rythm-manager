@@ -1,6 +1,6 @@
 import axios from 'axios'
 const send = (text) => {
-  axios.post('https://rythm-manager.herokuapp.com/', {
+  axios.post(process.env.REACT_APP_SERVER_URL, {
     msg: text,
   })
 }
