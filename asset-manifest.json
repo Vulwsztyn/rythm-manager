@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "https://vulwsztyn.github.io/rythm-manager/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "https://vulwsztyn.github.io/rythm-manager/static/js/main.296adc53.chunk.js",
-    "main.js.map": "https://vulwsztyn.github.io/rythm-manager/static/js/main.296adc53.chunk.js.map",
+    "main.js": "https://vulwsztyn.github.io/rythm-manager/static/js/main.b594f128.chunk.js",
+    "main.js.map": "https://vulwsztyn.github.io/rythm-manager/static/js/main.b594f128.chunk.js.map",
     "runtime-main.js": "https://vulwsztyn.github.io/rythm-manager/static/js/runtime-main.0bd1af38.js",
     "runtime-main.js.map": "https://vulwsztyn.github.io/rythm-manager/static/js/runtime-main.0bd1af38.js.map",
     "static/js/2.6ac9e30f.chunk.js": "https://vulwsztyn.github.io/rythm-manager/static/js/2.6ac9e30f.chunk.js",
     "static/js/2.6ac9e30f.chunk.js.map": "https://vulwsztyn.github.io/rythm-manager/static/js/2.6ac9e30f.chunk.js.map",
     "index.html": "https://vulwsztyn.github.io/rythm-manager/index.html",
-    "precache-manifest.a329a055b62fc047ae4743b20be6d0d2.js": "https://vulwsztyn.github.io/rythm-manager/precache-manifest.a329a055b62fc047ae4743b20be6d0d2.js",
+    "precache-manifest.70b0d99e83358ea5d44b8f9d0b2157e1.js": "https://vulwsztyn.github.io/rythm-manager/precache-manifest.70b0d99e83358ea5d44b8f9d0b2157e1.js",
     "service-worker.js": "https://vulwsztyn.github.io/rythm-manager/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "https://vulwsztyn.github.io/rythm-manager/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.6ac9e30f.chunk.js.LICENSE.txt": "https://vulwsztyn.github.io/rythm-manager/static/js/2.6ac9e30f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0bd1af38.js",
     "static/js/2.6ac9e30f.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.296adc53.chunk.js"
+    "static/js/main.b594f128.chunk.js"
   ]
 }
