@@ -11,8 +11,37 @@ class Bot {
   async init() {
     this.bot = new Discord.Client()
     await this.bot.login(this.TOKEN)
-    this.bot.on('ready', () => {
+    this.bot.on('ready', async () => {
       console.info(`Logged in as ${this.bot.user.tag}!`)
+    })
+    this.bot.on('message', async (message) => {
+      if (message.content.includes('Loading')) {
+        // console.log(message.content)
+        // console.log(Object.keys(message))
+
+        setTimeout(async () => {
+          // const channel = await this.bot.channels.get(this.msgChannelId)
+          // const msg = await channel.messages.fetch(message.id)
+          // console.log(msg.content)
+          message.react('📥')
+        }, 3000)
+      }
+      [
+        [/^!\s?p\s/, '!play '],
+        [/^!\s?rm?\s/, '!remove '],
+        [/^!\s?pt\s/, '!playnext '],
+        [/^!\s?pn\s/, '!playnext '],
+        [/^!\s?fs\s?$/, '!forceskip '],
+        [/^!\s?q\s?$/, '!queue'],
+      ].forEach(async ([regex, command]) => {
+        if (message.content.match(regex)) {
+          await this.send(message.content.replace(regex, command))
+        }
+      })
+      if (message.content.match(/^!\s?ps\s/)) {
+        await this.send(message.content.replace(/^!\s?ps\s/, '!playnext '))
+        await this.send('!forceskip')
+      }
     })
   }
   async send(text) {
