@@ -11,14 +11,12 @@ const {
   YT_API_KEY,
 } = process.env
 const { Bot } = require('./bot')
-const { Scheduler } = require('./scheduler')
 const { YT } = require('./yt')
 const qs = require('querystring')
 
 async function main() {
   const bot = new Bot(TOKEN, VOICE_CHANNEL_ID, MSG_CHANNEL_ID)
   const yt = new YT(qs, YT_API_KEY)
-  const scheduler = new Scheduler()
   await bot.init()
   polka()
     .use(cors())
@@ -29,7 +27,7 @@ async function main() {
     })
     .post('/', async (req, res) => {
       console.log(req.body.msg)
-      if (req.body.msg) await scheduler.add(() => bot.send(req.body.msg))
+      if (req.body.msg) await bot.send(req.body.msg)
       return send(res, 200, { success: true })
     })
     .post('/playlistItems', async (req, res) => {
