@@ -108,7 +108,7 @@ export default function TopBar(props) {
                           buttonFiller: <ClearAllSharpIcon />,
                         },
                         {
-                          command: 'loop',
+                          command: 'repeat on',
                           buttonFiller: <LoopSharpIcon />,
                         },
                       ].map(({ command, buttonFiller }) => (
@@ -145,7 +145,7 @@ export default function TopBar(props) {
 
                   <Grid item>
                     <Grid container spacing={1}>
-                      {['clear', 'disconnect'].map((text) => (
+                      {['remove ALL', 'disconnect'].map((text) => (
                         <Grid item>
                           <Button
                             variant="contained"
