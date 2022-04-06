@@ -49,7 +49,16 @@ class Bot {
 
     await voiceChannel.join()
 
-    await this.bot.channels.get(this.msgChannelId).send(text)
+    if (text.startsWith('!p http://www.youtube.com/watch_videos?video_ids=')) {
+      text
+        .split('=')[1]
+        .split(',')
+        .forEach(async (id) => {
+          await this.send(`!play https://youtu.be/${id}`)
+        })
+    } else {
+      await this.bot.channels.get(this.msgChannelId).send(text)
+    }
     // msgChannel.createMessage(text);
     // await voiceChannel.leave()
   }
